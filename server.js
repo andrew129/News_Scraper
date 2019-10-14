@@ -79,7 +79,7 @@ app.get('/articles/:id', function(req, res) {
 app.post('/articles/:id', function(req, res) {
     db.Comment.create(req.body)
         .then(function(dbComment) {
-            return db.Article.findOneAndUpdate({}, { $push: { Comment: dbComment._id } }, { new: true });
+            return db.Article.findOneAndUpdate({ _id: req.params.id }, { comment: dbComment._id }, { new: true });  
         })
         .then(function(dbArticle) {
             console.log(dbArticle)
@@ -89,6 +89,24 @@ app.post('/articles/:id', function(req, res) {
             res.json(err)
         })
 })
+
+app.get("/articles/:id", function(req, res) {
+        db.Article.deleteOne(
+            {
+            _id: req.params.id
+            },
+            function(error, removed) {
+                if (error) {
+                    console.log(error);
+                    res.send(error);
+                }
+                else {
+                    console.log(removed);
+                    res.json(removed);
+                }
+            }
+        );
+    });
 
 
 
