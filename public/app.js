@@ -1,8 +1,8 @@
  $.getJSON('/articles', function(data) {
     for (let i = 0; i < data.length; i++) {
-        $("#articles").append("<p data-id='" + data[i]._id + "'>" + '<strong>' + data[i].title + '</strong>' + "<br />" + '<em>' + data[i].summary + '</em>' + "<br />" + data[i].link + "</p>");
+        $("#articles").append("<div data-id='" + data[i]._id + "'>" + '<h4>' + '<strong>' + data[i].title + '</strong>' + '</h4>' + '<p>' + '<em>' + data[i].summary + '</em>' + '</p>' + '<p>' + data[i].link + '</p' + "</div>");
         let newButton = $('<button>').attr('data-id', data[i]._id).text('Add Comment').addClass('btn btn-primary w-33 mr-1 mb-3 comment')
-        let newButtonTwo = $('<button>').attr('data-id', data[i]._id).text('Show Comments').addClass('btn btn-secondary w-33 mr-1 mb-3 show-comment')
+        let newButtonTwo = $('<button>').attr('data-id', data[i]._id).text('Show Comments').addClass('btn btn-dark w-33 mr-1 mb-3 show-comment text-white')
         let newButtonThree = $('<button>').attr('data-id', data[i]._id).text('Delete Article').addClass('btn btn-danger w-33 mr-1 mb-3 delete-button')
         $('#articles').append(newButton)
         $('#articles').append(newButtonTwo)
