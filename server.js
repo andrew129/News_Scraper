@@ -10,7 +10,8 @@ const PORT = process.env.PORT || 3000;
 
 let app = express()
 
-mongoose.connect("process.env.MONGODB_URI" || "mongodb://localhost/webscraper", { useNewUrlParser: true });
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/webscraper", {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.use(logger("dev"));
 
