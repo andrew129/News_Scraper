@@ -63,8 +63,7 @@ $(document).on('click', '#post', function() {
 })
 
 $(document).on("click", ".delete-button", function () {
-  // $('#articles').empty()
-  var thisId = $(this).attr("data-id");
+  const thisId = $(this).attr("data-id");
   $.ajax({
       method: "DELETE",
       url: "/articles/" + thisId

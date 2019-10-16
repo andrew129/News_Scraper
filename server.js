@@ -1,3 +1,4 @@
+//adding dependencies
 const express = require('express')
 const axios = require('axios')
 const cheerio = require('cheerio')
@@ -5,12 +6,13 @@ const mongoose = require('mongoose')
 const logger = require('morgan')
 require('dotenv').config();
 
+//reference to models
 let db = require('./models')
-
+//setting port for heroku
 const PORT = process.env.PORT || 3000;
-
+//instantiating express
 let app = express()
-
+//setting up mongo for heroku
 mongoose.Promise = Promise
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/webscraper", {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -21,6 +23,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
+//grabs articles from the huffington post
 app.get("/scrape", function (req, res) {
     axios.get("https://www.huffpost.com/").then(function (response) {
       var $ = cheerio.load(response.data);
@@ -51,6 +54,7 @@ app.get("/scrape", function (req, res) {
     });
 });
   
+//finding all the articles in the database
 app.get('/articles', function(req, res) {
     db.Article.find({})
         .then(function(dbArticle) {
@@ -62,6 +66,7 @@ app.get('/articles', function(req, res) {
         })
 })
 
+//allowing the comments to be associated with the article
 app.get('/articles/:id', function(req, res) {
     db.Article.findOne(
         {
@@ -78,6 +83,7 @@ app.get('/articles/:id', function(req, res) {
     });
 });
 
+//allows comments to be posted
 app.post('/articles/:id', function(req, res) {
     db.Comment.create(req.body)
         .then(function(dbComment) {
@@ -92,6 +98,7 @@ app.post('/articles/:id', function(req, res) {
         })
 })
 
+//deletes an article
 app.delete("/articles/:id", function (req, res) {
     db.Article
         .remove({ _id: req.params.id })
@@ -101,7 +108,7 @@ app.delete("/articles/:id", function (req, res) {
 });
 
 
-
+//starts the server at the specified port
 app.listen(PORT, function() {
     console.log("App running on port " + PORT + "!");
 });
