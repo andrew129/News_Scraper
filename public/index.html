@@ -12,7 +12,7 @@
 <body>
     <style>
         body {
-            background-image: linear-gradient(rgb(13, 91, 236), rgb(61, 56, 56), rgb(94, 94, 233))
+            background-image: linear-gradient(to right, rgb(13, 91, 236), rgb(109, 99, 99), rgb(94, 94, 233))
         }
 
         .white {
@@ -25,6 +25,7 @@
 
         header {
             border-bottom: solid 2px white;
+            margin-bottom: 20px;
         }
 
         textarea, input {
@@ -41,6 +42,15 @@
             height: 200px;
             font-size: 18px;
         }
+
+        #articles {
+            background: rgb(228, 227, 227, 0.3);
+        }
+
+        .text-black {
+            border-bottom: solid blue 2px;
+        }
+        
     </style>
     <header class='header bg-dark text-center text-white'>
         <h1>Mongo Web Scraper</h1>
@@ -50,10 +60,11 @@
         <div class='row'>
             <div class='col-3'>
             </div>
-            <div class='col-6'>
+            <div class='col-6 text-center'>
                 <div id='articles'>
-                    <div id='usercomments'></div>
+                    <h1 class='bg-secondary w-100 text-black'>Today's Articles</h1>
                 </div>
+                <div id='usercomments'></div>
             </div>
             <div class='col-3'>
                 <div id='comments'>

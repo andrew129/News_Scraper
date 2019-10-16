@@ -3,6 +3,7 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 const mongoose = require('mongoose')
 const logger = require('morgan')
+require('dotenv').config();
 
 let db = require('./models')
 
@@ -10,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 let app = express()
 
-mongoose.Promise = global.Promise;
+mongoose.Promise = Promise
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/webscraper", {useNewUrlParser: true, useUnifiedTopology: true});
 
 app.use(logger("dev"));
@@ -91,39 +92,14 @@ app.post('/articles/:id', function(req, res) {
         })
 })
 
-// app.get('/articles/id/:comment', function(req, res) {
-//     db.Article.findOne(
-//         {
-//             comment: req.params.comment
-//         },
-//     )
-//     .then(function(dbComment) {
-//         console.log(dbComment)
-//         res.json(dbComment)
-//     })
-//     .catch(function(err) {
-//         res.json(err)
-//     })
-// })
+app.delete("/articles/:id", function (req, res) {
+    db.Article
+        .remove({ _id: req.params.id })
+        .then(function (dbArticle) {
+            res.json(dbArticle)
+        })
+});
 
-
-app.get("/articles/:id", function(req, res) {
-        db.Article.deleteOne(
-            {
-            _id: req.params.id
-            },
-            function(error, removed) {
-                if (error) {
-                    console.log(error);
-                    res.send(error);
-                }
-                else {
-                    console.log(removed);
-                    res.json(removed);
-                }
-            }
-        );
-    });
 
 
 app.listen(PORT, function() {
