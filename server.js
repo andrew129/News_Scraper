@@ -90,6 +90,22 @@ app.post('/articles/:id', function(req, res) {
         })
 })
 
+app.get('/articles/id/:comment', function(req, res) {
+    db.Article.findOne(
+        {
+            comment: req.params.comment
+        },
+    )
+    .then(function(dbComment) {
+        console.log(dbComment)
+        res.json(dbComment)
+    })
+    .catch(function(err) {
+        res.json(err)
+    })
+})
+
+
 app.get("/articles/:id", function(req, res) {
         db.Article.deleteOne(
             {

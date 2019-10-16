@@ -5,12 +5,10 @@ let Schema = mongoose.Schema;
 let CommentSchema = new Schema({
     name: {
         type: String,
-        required: true
     },
 
-    comment: {
+    message: {
         type: String,
-        required: true
     }
 });
 
