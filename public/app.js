@@ -62,6 +62,22 @@ $(document).on('click', '#post', function() {
     $("#bodyinput").val("");
 })
 
+$(document).on('click', 'show-comment', function() {
+  const thisId = $(this).attr("data-id");
+
+  $.ajax({
+    method: 'GET',
+    url: '/articles/' + thisId
+  }).then(function(data) {
+    console.log(data.comment.message)
+    if (data.comment) {
+      let newP = $('<p>')
+      newP.text(data.comment.message)
+      $('#usercomments').append(newP)
+    }
+  })
+})
+
 $(document).on("click", ".delete-button", function () {
   const thisId = $(this).attr("data-id");
   $.ajax({
