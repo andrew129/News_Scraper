@@ -31,7 +31,7 @@ $(document).on("click", ".comment", function() {
     })
       .then(function(data) {
         console.log(data);
-        $("#comments").append("<h2>" + data.title + "</h2>");
+        $("#comments").append("<p>" + data.title + "</p>");
         $("#comments").append("<input id='titleinput' name='name' placeholder='Enter Name' >");
         $("#comments").append("<textarea id='bodyinput' name='message' placeholder='Enter Comment'></textarea>");
         $("#comments").append("<button data-id='" + data._id + "' + class='w-100 btn btn-primary' + id='post'>Post</button>");
