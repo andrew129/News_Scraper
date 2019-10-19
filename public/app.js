@@ -11,6 +11,7 @@
 })
 
 $(document).on('click', "#scrape-article", function() {
+  $('#articles').empty()
   $.ajax({
     method: "GET",
     url: "/scrape"
@@ -62,7 +63,7 @@ $(document).on('click', '#post', function() {
     $("#bodyinput").val("");
 })
 
-$(document).on('click', 'show-comment', function() {
+$(document).on('click', '.show-comment', function() {
   const thisId = $(this).attr("data-id");
 
   $.ajax({

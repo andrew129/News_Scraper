@@ -25,12 +25,15 @@ app.use(express.static("public"));
 
 //grabs articles from the huffington post
 app.get("/scrape", function (req, res) {
+    db.Article.remove({}, function(err) {
+        console.log(err)
+    });
     axios.get("https://www.huffpost.com/").then(function (response) {
       var $ = cheerio.load(response.data);
   
   
       $(".card__headlines").each(function (i, element) {
-  
+        
         var link = $(element).children(".card__headline").children("a").attr("href");
         var title = $(element).children(".card__headline").children("a").children(".card__headline__text").text();
         var summary = $(element).children(".card__description").children("a").text();
